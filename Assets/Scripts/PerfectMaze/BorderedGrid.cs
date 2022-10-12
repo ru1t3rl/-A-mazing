@@ -10,7 +10,7 @@ public class BorderedGrid : Grid
     /// <param name="size">The size of the grid</param>
     public override void Generate(Vector2Int size)
     {
-        if (nodes.Count > 0)
+        if (nodes is not null && nodes.Count > 0)
         {
             for (int i = nodes.Count; i-- > 0;)
             {

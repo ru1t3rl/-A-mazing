@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(BorderedGrid))]
@@ -6,7 +7,7 @@ public class RecursiveBacktracking : BaseAlgorithm
 {
     private Stack<BorderedNode> stack;
 
-    public override void Execute(List<INode> nodes, INode startNode)
+    public override IEnumerator Execute(List<INode> nodes, INode startNode)
     {
         stack = new Stack<BorderedNode>();
 
@@ -28,13 +29,13 @@ public class RecursiveBacktracking : BaseAlgorithm
                 stack.Push(nextNode);
                 nextNode.Visit();
                 currentNode.RemoveWall(nextNode);
-                //nextNode.RemoveWall(currentNode);
             }
             else
             {
                 stack.Pop();
             }
-        }
 
+            yield return null;
+        }
     }
 }

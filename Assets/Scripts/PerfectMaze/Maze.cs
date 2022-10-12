@@ -11,18 +11,18 @@ public class Maze : MonoBehaviour
     private void Start()
     {
         grid.Generate(gridSize);
-        algorithm.Execute(grid.Nodes, grid.Nodes[0]);
+        StartCoroutine(algorithm.Execute(grid.Nodes, grid.Nodes[0]));
     }
 
     public void Generate()
     {
         grid.Reset();
-        algorithm.Execute(grid.Nodes, grid.Nodes[0]);
+        StartCoroutine(algorithm.Execute(grid.Nodes, grid.Nodes[0]));
     }
 
     public void Generate(Vector2Int gridSize)
     {
         grid.Generate(gridSize);
-        algorithm.Execute(grid.Nodes, grid.Nodes[0]);
+        StartCoroutine(algorithm.Execute(grid.Nodes, grid.Nodes[0]));
     }
 }

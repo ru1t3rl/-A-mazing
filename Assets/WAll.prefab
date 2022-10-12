@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5641087965564387068}
   - component: {fileID: 529158533943357114}
   - component: {fileID: 764971288411743012}
+  - component: {fileID: 8786381283918318368}
   m_Layer: 0
   m_Name: WAll
   m_TagString: Untagged
@@ -110,3 +111,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73c3cb03b38dc684fa3a3ee294edd1ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!205 &8786381283918318368
+LODGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4900314276691777203}
+  serializedVersion: 2
+  m_LocalReferencePoint: {x: 0, y: 0, z: 0}
+  m_Size: 1
+  m_FadeMode: 0
+  m_AnimateCrossFading: 0
+  m_LastLODIsBillboard: 0
+  m_LODs:
+  - screenRelativeHeight: 0.14361416
+    fadeTransitionWidth: 0
+    renderers:
+    - renderer: {fileID: 5641087965564387068}
+  - screenRelativeHeight: 0.14361416
+    fadeTransitionWidth: 0
+    renderers: []
+  - screenRelativeHeight: 0.013757116
+    fadeTransitionWidth: 0
+    renderers: []
+  m_Enabled: 1
