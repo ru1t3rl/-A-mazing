@@ -17,6 +17,14 @@ public class Wall : MonoBehaviour
             Position.West => new Vector3(-size.x / 2, 0, 0),
             _ => Vector3.zero
         };
+
+        transform.localScale = position switch {
+            Position.North => new Vector3(size.x, transform.localScale.y, transform.localScale.z),
+            Position.South => new Vector3(size.x, transform.localScale.y, 0.1f),
+            Position.East => new Vector3(transform.localScale.z, transform.localScale.y, size.z),
+            Position.West => new Vector3(transform.localScale.z, transform.localScale.y, size.z),
+            _ => Vector3.zero
+        };
     }
 
     public void Hide()
@@ -32,6 +40,12 @@ public class Wall : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.yellow;
-        Gizmos.DrawCube(transform.position, new Vector3(size.x, 1f, 0.1f));
+        Gizmos.DrawCube(transform.position, position switch {
+            Position.North => new Vector3(size.x, 0.1f, 0.1f),
+            Position.South => new Vector3(size.x, 0.1f, 0.1f),
+            Position.East => new Vector3(0.1f, 0.1f, size.z),
+            Position.West => new Vector3(0.1f, 0.1f, size.z),
+            _ => Vector3.zero
+        });
     }
 }

@@ -4,11 +4,21 @@ using UnityEngine;
 
 public class BorderedGrid : Grid
 {
-    
+    [SerializeField] private GameObject wallPrefab;
+
     /// <summary>Generate the grid</summary>
     /// <param name="size">The size of the grid</param>
     public override void Generate(Vector2Int size)
     {
+        if (nodes.Count > 0)
+        {
+            for (int i = nodes.Count; i-- > 0;)
+            {
+                Destroy((nodes[i] as BorderedNode).gameObject);
+            }
+            nodes.Clear();
+        }
+
         size.x = Mathf.Max(size.x, MIN_WIDTH);
         size.x = Mathf.Min(size.x, MAX_WIDTH);
 
@@ -22,14 +32,14 @@ public class BorderedGrid : Grid
             node.transform.parent = transform;
 
             nodes.Add(node.AddComponent<BorderedNode>());
-            (nodes[iPosition] as BorderedNode).Initialize();
+            (nodes[iPosition] as BorderedNode).Initialize(iPosition, wallPrefab);
 
             // The x position x is the remainder of x times the distance modulo the width
             // The y position is distnace * (x divider width) floored
             node.transform.position = new Vector3(
-                (iPosition * distanceBetweenNodes) % size.x,
+                ((iPosition * distanceBetweenNodes) % size.x),
                 0,
-                distanceBetweenNodes * (Mathf.Floor(iPosition / size.x))
+                -(distanceBetweenNodes * (Mathf.Floor(iPosition / size.x)))
             );
 
             #region LinkNeighbours

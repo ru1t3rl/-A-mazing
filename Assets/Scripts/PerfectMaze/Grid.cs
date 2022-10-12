@@ -18,6 +18,15 @@ public class Grid : MonoBehaviour
     /// <param name="size">The size of the grid</param>
     public virtual void Generate(Vector2Int size)
     {
+        if (nodes.Count > 0)
+        {
+            for (int i = nodes.Count; i-- > 0;)
+            {
+                Destroy((nodes[i] as Node).gameObject);
+            }
+            nodes.Clear();
+        }
+
         size.x = Mathf.Max(size.x, MIN_WIDTH);
         size.x = Mathf.Min(size.x, MAX_WIDTH);
 
@@ -31,6 +40,8 @@ public class Grid : MonoBehaviour
             node.transform.parent = transform;
 
             nodes.Add(node.AddComponent<Node>());
+
+            (nodes[iPosition] as Node).SetID(iPosition);
 
             // The x position x is the remainder of x times the distance modulo the width
             // The y position is distnace * (x divider width) floored
@@ -47,13 +58,24 @@ public class Grid : MonoBehaviour
                 (nodes[iPosition - size.x] as Node).AddNeighbor(Position.South, nodes[iPosition]);
             }
 
-            if ((iPosition - 1) >= 0 && 
+            if ((iPosition - 1) >= 0 &&
                 Mathf.Floor((iPosition - 1) / size.x) == Mathf.Floor((iPosition) / size.x))
             {
                 (nodes[iPosition] as Node).AddNeighbor(Position.West, nodes[iPosition - 1]);
                 (nodes[iPosition - 1] as Node).AddNeighbor(Position.East, nodes[iPosition]);
             }
             #endregion
+        }
+    }
+
+    public virtual void Reset()
+    {
+        if (nodes != null)
+        {
+            foreach (INode node in nodes)
+            {
+                node.Reset();
+            }
         }
     }
 

@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class BorderedNode : Node
 {
-    private new Dictionary<Position, BorderedNode> neighbors = new Dictionary<Position, BorderedNode>();
     private List<Wall> borders = new List<Wall>();
 
-    public void Initialize(GameObject wall = null)
+    public void Initialize(long ID, GameObject wall = null)
     {
+        this.ID = ID;
+
         if (borders.Count > 0)
         {
             for (int i = 0; i < borders.Count; i++)
@@ -26,24 +27,50 @@ public class BorderedNode : Node
 
     /// <summary>Remove the border in the given position.</summary>
     /// <param name="position">The position of the border to remove.</param>
-    public void RemoveWall(Position position)
+    public void RemoveWall(Position position, bool fromNeighbor = false)
     {
-        neighbors[position].RemoveWall(position.Opposite());
+        if (!fromNeighbor)
+        {
+            // Request the neigbor the also remove the wall
+            (neighbors[position] as BorderedNode).RemoveWall(
+                position.Opposite(),
+                fromNeighbor: true
+            );
+        }
 
         borders.Find(border => border.position == position).Hide();
-        borders.Remove(position);
+        //borders.Remove(position);
     }
 
+    /// <summary>Remove the border between this node and the given node.</summary>
+    /// <param name="node">The node to remove the border with.</param>
     public void RemoveWall(INode neighbor)
     {
-        Position position = neighbors.First(node => node.Value == (Object)neighbor).Key;
-        RemoveWall(position);
+        foreach (Position key in neighbors.Keys)
+        {
+            if (neighbors[key].ID == neighbor.ID)
+            {
+                RemoveWall(key);
+                return;
+            }
+        }
+
+        throw new System.Exception($"Failed to find mathing neighbor (ID: {ID})");
+    }
+
+    public override void Reset()
+    {
+        base.Reset();
+        borders.ForEach(border => border.Show());
     }
 
     private Wall CreateBorder(Position position, GameObject wallObject = null)
     {
-        wallObject = Instantiate(wallObject, transform);
-        Wall wall = wallObject.GetComponent<Wall>() ?? wallObject.AddComponent<Wall>();        
+        wallObject = wallObject == null ? new GameObject("Wall") : Instantiate(wallObject);
+        wallObject.transform.SetParent(transform);
+        wallObject.transform.localPosition = Vector3.zero;
+
+        Wall wall = wallObject.GetComponent<Wall>() ?? wallObject.AddComponent<Wall>();
         wall.Initialize(position, transform.localScale);
         wall.transform.SetParent(transform);
         return wall;
