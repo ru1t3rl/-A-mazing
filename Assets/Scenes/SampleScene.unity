@@ -154,7 +154,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 580909883}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -291,7 +291,7 @@ RectTransform:
   m_Children:
   - {fileID: 27725225}
   m_Father: {fileID: 954581274}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -404,6 +404,7 @@ GameObject:
   - component: {fileID: 657822121}
   - component: {fileID: 657822124}
   - component: {fileID: 657822123}
+  - component: {fileID: 657822125}
   m_Layer: 0
   m_Name: Maze
   m_TagString: Untagged
@@ -425,7 +426,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gridSize: {x: 10, y: 10}
   grid: {fileID: 657822124}
-  algorithm: {fileID: 657822123}
+  algorithm: {fileID: 657822125}
 --- !u!4 &657822122
 Transform:
   m_ObjectHideFlags: 0
@@ -483,6 +484,18 @@ MonoBehaviour:
         m_CallState: 2
   eventName: onFinishGrid
   wall: {fileID: 457401131912003687, guid: 6530ec42590de1f4dbebe9044cbd14fe, type: 3}
+--- !u!114 &657822125
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 657822120}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fca085aa93824ee4eaec737fbf0705d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -654,7 +667,6 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
-  m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
@@ -756,7 +768,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   m_LocalRotation: {x: 0.70710665, y: -0, z: -0, w: 0.70710695}
-  m_LocalPosition: {x: 9.054571, y: 14.136859, z: -4.6472535}
+  m_LocalPosition: {x: 4.5, y: 14.766428, z: 4.5000014}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

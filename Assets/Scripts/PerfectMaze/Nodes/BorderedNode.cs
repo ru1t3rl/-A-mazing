@@ -57,7 +57,7 @@ namespace Ru1t3rl.PerfectMaze.Nodes
                 }
             }
 
-            throw new System.Exception($"Failed to find matching neighbor (ID: {neighbor.ID})");
+            throw new System.Exception($"[Node-{ID}] Failed to find matching neighbor (ID: {neighbor.ID})");
         }
 
         public override void Reset()

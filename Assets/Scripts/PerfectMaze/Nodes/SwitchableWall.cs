@@ -17,10 +17,10 @@ namespace Ru1t3rl.PerfectMaze.Nodes
 
             transform.position = position switch
             {
-                Position.North => new Vector3(0, 0, size.z/2),
-                Position.South => new Vector3(0, 0, -size.z/2),
-                Position.East => new Vector3(size.x/2, 0, 0),
-                Position.West => new Vector3(-size.x/2, 0, 0),
+                Position.North => new Vector3(0, 0, size.z / 2),
+                Position.South => new Vector3(0, 0, -size.z / 2),
+                Position.East => new Vector3(size.x / 2, 0, 0),
+                Position.West => new Vector3(-size.x / 2, 0, 0),
                 _ => Vector3.zero
             };
 
@@ -32,6 +32,8 @@ namespace Ru1t3rl.PerfectMaze.Nodes
                 Position.East or Position.West => new Vector3(0, -90, 0),
                 _ => Vector3.zero
             });
+
+            visible = true;
         }
 
         private void Awake()
@@ -43,11 +45,13 @@ namespace Ru1t3rl.PerfectMaze.Nodes
         public override void Hide()
         {
             meshFilter.mesh = openMesh;
+            visible = false;
         }
 
         public override void Show()
         {
             meshFilter.mesh = closedMesh;
+            visible = true;
         }
     }
 }

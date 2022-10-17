@@ -92,7 +92,7 @@ namespace Ru1t3rl.PerfectMaze.Grids
         {
             for (int i = 0; i < nodes.Count; i++)
             {
-                if (!nodes[i].visited)
+                if (!nodes[i].visited && (nodes[i] as Node).gameObject.activeSelf)
                 {
                     i = i + (250 - (i % 250)) - 1;
                 }

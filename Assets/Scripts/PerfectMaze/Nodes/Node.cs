@@ -33,7 +33,14 @@ namespace Ru1t3rl.PerfectMaze.Nodes
             if (neighbors is null)
                 neighbors = new Dictionary<Position, INode>();
 
-            neighbors.Add(position, node);
+            try
+            {
+                neighbors.Add(position, node);
+            }
+            catch (System.ArgumentException)
+            {
+                Debug.LogWarning($"[Node-{ID}] Failed to add neighbor (ID: {node.ID}) at position {position}, it already exists");
+            }
         }
 
         public virtual void Reset()

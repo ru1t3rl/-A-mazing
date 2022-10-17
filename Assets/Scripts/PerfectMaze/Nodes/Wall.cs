@@ -7,6 +7,8 @@ namespace Ru1t3rl.PerfectMaze.Nodes
         public Position position { get; protected set; }
         protected Vector3 size;
 
+        public bool visible { get; protected set; }
+
         public virtual void Initialize(Position position, Vector3 size)
         {
             this.position = position;
@@ -29,20 +31,27 @@ namespace Ru1t3rl.PerfectMaze.Nodes
                 Position.West => new Vector3(transform.localScale.z, transform.localScale.y, size.z),
                 _ => Vector3.zero
             };
+
+            visible = true;
         }
 
         public virtual void Hide()
         {
+            visible = false;
             gameObject.SetActive(false);
         }
 
         public virtual void Show()
         {
+            visible = true;
             gameObject.SetActive(true);
         }
 
         private void OnDrawGizmos()
         {
+            if (!visible)
+                return;
+
             Gizmos.color = Color.yellow;
             Gizmos.DrawCube(transform.position, position switch
             {
