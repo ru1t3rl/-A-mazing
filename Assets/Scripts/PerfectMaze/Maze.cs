@@ -1,28 +1,25 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using Ru1t3rl.PerfectMaze.Algorithms;
 
-public class Maze : MonoBehaviour
+namespace Ru1t3rl.PerfectMaze
 {
-    [SerializeField] private Vector2Int gridSize;
-    [SerializeField] private Grid grid;
-    [SerializeField] private BaseAlgorithm algorithm;
-
-    private void Start()
+    public class Maze : MonoBehaviour
     {
-        grid.Generate(gridSize);
-        algorithm.Execute(grid.Nodes, grid.Nodes[0]);
-    }
+        [SerializeField] private Vector2Int gridSize;
+        [SerializeField] private Ru1t3rl.PerfectMaze.Grids.Grid grid;
+        [SerializeField] private BaseAlgorithm algorithm;
 
-    public void Generate()
-    {
-        grid.Reset();
-        algorithm.Execute(grid.Nodes, grid.Nodes[0]);
-    }
 
-    public void Generate(Vector2Int gridSize)
-    {
-        grid.Generate(gridSize);
-        algorithm.Execute(grid.Nodes, grid.Nodes[0]);
+        public void Generate()
+        {
+            grid.Generate(gridSize);
+            algorithm.Execute(grid.Nodes, grid.Nodes[0]);
+        }
+
+        public void Generate(Vector2Int gridSize)
+        {
+            //grid.Generate(gridSize);
+            //algorithm.Execute(grid.Nodes, grid.Nodes[0]);
+        }
     }
 }

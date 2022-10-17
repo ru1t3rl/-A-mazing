@@ -403,7 +403,7 @@ GameObject:
   - component: {fileID: 657822122}
   - component: {fileID: 657822121}
   - component: {fileID: 657822124}
-  - component: {fileID: 657822125}
+  - component: {fileID: 657822123}
   m_Layer: 0
   m_Name: Maze
   m_TagString: Untagged
@@ -423,9 +423,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22f4df65ad1f4f2479aef0948e5f23ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gridSize: {x: 20, y: 10}
-  grid: {fileID: 657822125}
-  algorithm: {fileID: 657822124}
+  gridSize: {x: 10, y: 10}
+  grid: {fileID: 657822124}
+  algorithm: {fileID: 657822123}
 --- !u!4 &657822122
 Transform:
   m_ObjectHideFlags: 0
@@ -441,6 +441,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &657822123
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 657822120}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19bfa06ecc8727841a737b6aea64ca2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &657822124
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -450,23 +462,27 @@ MonoBehaviour:
   m_GameObject: {fileID: 657822120}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2820f3e1ed1a69f48be6c49b805f3657, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &657822125
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 657822120}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 368e92f05a829ab4587a6bba2997025d, type: 3}
+  m_Script: {fileID: 11500000, guid: 402526233f421c445ac39554a5fc2d41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   distanceBetweenNodes: 1
-  wallPrefab: {fileID: 4900314276691777203, guid: 8672893fa5932184e9d191c83b346128, type: 3}
+  onFinishBuild:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 657822121}
+        m_TargetAssemblyTypeName: Ru1t3rl.PerfectMaze.Maze, Assembly-CSharp
+        m_MethodName: Generate
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  eventName: onFinishGrid
+  wall: {fileID: 457401131912003687, guid: 6530ec42590de1f4dbebe9044cbd14fe, type: 3}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
