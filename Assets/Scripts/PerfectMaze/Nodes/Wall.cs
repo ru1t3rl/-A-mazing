@@ -14,7 +14,7 @@ namespace Ru1t3rl.PerfectMaze.Nodes
             this.position = position;
             this.size = size;
 
-            transform.position = position switch
+             transform.position = position switch
             {
                 Position.North => new Vector3(0, 0, size.z / 2),
                 Position.South => new Vector3(0, 0, -size.z / 2),
@@ -23,14 +23,14 @@ namespace Ru1t3rl.PerfectMaze.Nodes
                 _ => Vector3.zero
             };
 
-            transform.localScale = position switch
+            transform.localScale = new Vector3(size.x, size.y, size.z);
+
+            transform.Rotate(position switch
             {
-                Position.North => new Vector3(size.x, transform.localScale.y, transform.localScale.z),
-                Position.South => new Vector3(size.x, transform.localScale.y, 0.1f),
-                Position.East => new Vector3(transform.localScale.z, transform.localScale.y, size.z),
-                Position.West => new Vector3(transform.localScale.z, transform.localScale.y, size.z),
+                Position.North or Position.South => Vector3.zero,
+                Position.East or Position.West => new Vector3(0, -90, 0),
                 _ => Vector3.zero
-            };
+            });
 
             visible = true;
         }
