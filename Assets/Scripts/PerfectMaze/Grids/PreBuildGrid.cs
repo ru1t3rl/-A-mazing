@@ -12,9 +12,14 @@ namespace Ru1t3rl.PerfectMaze.Grids
         public UnityEvent onFinishBuild;
         public string eventName = "onFinishGrid";
 
+        public UnityEvent<System.EventArgs> onLoadingUpdate;
+        protected LoadingEventArgs eventArgs = new LoadingEventArgs();
+
         public void Awake()
         {
             EventManager.Instance.AddEvent(eventName, onFinishBuild);
+            EventManager.Instance.AddEvent("onLoadingUpdate", onLoadingUpdate);
+
             StartCoroutine(PreBuild());
         }
 
@@ -51,10 +56,16 @@ namespace Ru1t3rl.PerfectMaze.Grids
                     performanceControl.Reset();
                     performanceControl.Start();
                 }
+
+                eventArgs.Progress = (float)iPosition / (MAX_HEIGHT * MAX_WIDTH);
+                EventManager.Instance.Invoke("onLoadingUpdate", eventArgs);
             }
 
             totalDuration.Stop();
             UnityEngine.Debug.Log($"Grid build took {totalDuration.ElapsedMilliseconds}ms");
+
+            eventArgs.Progress = 1f;
+            EventManager.Instance.Invoke("onLoadingUpdate", eventArgs);
 
             EventManager.Instance.Invoke(eventName);
         }

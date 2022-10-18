@@ -21,5 +21,13 @@ namespace Ru1t3rl.PerfectMaze
             //grid.Generate(gridSize);
             //algorithm.Execute(grid.Nodes, grid.Nodes[0]);
         }
+
+        public void SetWidth(int width) {
+            gridSize.x = width;
+        }
+
+        public void SetHeight(int height) {
+            gridSize.y = height;
+        }
     }
 }

@@ -8,6 +8,7 @@ namespace Ru1t3rl.Events
     public class EventManager : UnitySingleton<EventManager>
     {
         [SerializeField] private List<CustomEvent> events = new List<CustomEvent>();
+        [SerializeField] private List<CustomEvent<System.EventArgs>> eventsWithArgs = new List<CustomEvent<System.EventArgs>>();
 
         protected override void Awake()
         {
@@ -33,6 +34,19 @@ namespace Ru1t3rl.Events
             events.GetEvent(eventName).AddListener(listener);
         }
 
+        /// <summary>Adds a listenere to an event, if the event doesn't exist it will be created</summary>
+        /// <param name="eventName">The name of the event</param>
+        /// <param name="listener">The listener to add</param>
+        public void AddListener(string eventName, System.Action<System.EventArgs> listener)
+        {
+            if (!eventsWithArgs.ContainsKey(eventName))
+            {
+                eventsWithArgs.Add(new CustomEvent<System.EventArgs>(eventName));
+            }
+
+            eventsWithArgs.GetEvent(eventName).AddListener(listener);
+        }
+
         /// <summary>Removes a listener from an event if the event exists</summary>
         /// <param name="eventName">The name of the event</param>
         /// <param name="listener">The listener to remove</param>
@@ -41,6 +55,17 @@ namespace Ru1t3rl.Events
             if (events.ContainsKey(eventName))
             {
                 events.GetEvent(eventName).RemoveListener(listener);
+            }
+        }
+
+        /// <summary>Removes a listener from an event if the event exists</summary>
+        /// <param name="eventName">The name of the event</param>
+        /// <param name="listener">The listener to remove</param>
+        public void RemoveListener(string eventName, System.Action<System.EventArgs> listener)
+        {
+            if (eventsWithArgs.ContainsKey(eventName))
+            {
+                eventsWithArgs.GetEvent(eventName).RemoveListener(listener);
             }
         }
 
@@ -70,6 +95,32 @@ namespace Ru1t3rl.Events
             }
         }
 
+        /// <summary>Add an event, if the eventName already exists add it as a listener</summary>
+        /// <param name="eventName">The name of the event</param>
+        /// <param name="unityEvent">The unity event to add to the manager</param>
+        public void AddEvent(string eventName, UnityEvent<System.EventArgs> unityEvent)
+        {
+            if (!events.ContainsKey(eventName))
+            {
+                eventsWithArgs.Add(new CustomEvent<System.EventArgs>(eventName));
+                eventsWithArgs[eventsWithArgs.Count - 1].unityEvent = unityEvent;
+            }
+            else
+            {
+                eventsWithArgs.GetEvent(eventName).AddListener(unityEvent.Invoke);
+            }
+        }
+
+        /// <summary>Add an event if it doesn't exist</summary>
+        /// <param name="customEvent">The custom event to add to the manager</param>
+        public void AddEvent(CustomEvent<System.EventArgs> customEvent)
+        {
+            if (!eventsWithArgs.Contains(customEvent))
+            {
+                eventsWithArgs.Add(customEvent);
+            }
+        }
+
         /// <summary>Invoke the event with the given name if it exists</summary>
         /// <param name="eventName">The name of the event to invoke</param>
         public void Invoke(string eventName)
@@ -77,6 +128,16 @@ namespace Ru1t3rl.Events
             if (events.ContainsKey(eventName))
             {
                 events.GetEvent(eventName).Invoke();
+            }
+        }
+
+        /// <summary>Invoke the event with the given name if it exists</summary>
+        /// <param name="eventName">The name of the event to invoke</param>
+        public void Invoke(string eventName, System.EventArgs args)
+        {
+            if (eventsWithArgs.ContainsKey(eventName))
+            {
+                eventsWithArgs.GetEvent(eventName).Invoke(args);
             }
         }
     }
